@@ -1,15 +1,15 @@
 ---
-name: cc
+name: ccgarage
 description: Claude Code maintenance — manage plugins, skills, memory, and configuration
 ---
 
-# Claude Code Maintenance (`/cc`)
+# Claude Code Maintenance (`/ccgarage`)
 
 Unified maintenance workflow for Claude Code ecosystem. Verbs mirror homebrew UX.
 
 ## Usage
 
-`/cc <verb> [args]`
+`/ccgarage <verb> [args]`
 
 If no verb given (or verb is `help`), this usage message displays.
 
@@ -63,14 +63,14 @@ esac
 
 # Hand off to sub-skill with remaining args
 shift  # remove verb from args
-exec invoke-skill "cc:$SKILL_FILE" "$@"
+exec invoke-skill "ccgarage:$SKILL_FILE" "$@"
 ```
 
 ## Dispatch: Subagent Pattern
 
 **When dispatching to a sub-skill, use the Agent tool** to spawn a subagent that:
 
-1. Reads `~/.claude/skills/cc/<verb>.md`
+1. Reads `~/.claude/skills/ccgarage/<verb>.md`
 2. Executes the bash logic, adapting as needed for actual file formats on disk
 3. Returns **only the formatted diagnostic/action output** — not the skill file contents
 
