@@ -1,34 +1,10 @@
----
-name: cc:install
-description: Install marketplace or git-sourced plugin
----
+#!/usr/bin/env bash
+set -euo pipefail
 
-# `/cc install <plugin-name-or-repo>`
-
-Installs plugins from marketplaces or GitHub repositories.
-
-## Usage Examples
-
-```bash
 /cc install superpowers                          # From default marketplace
 /cc install user/repo                            # From GitHub (user/repo)
 /cc install https://github.com/user/repo         # From GitHub (full URL)
 ```
-
-## Behavior
-
-**Marketplace plugins** (plain names like `superpowers`):
-- Installs from the default `claude-plugins-official` marketplace
-- Fast installation (no git clone needed)
-
-**Git-sourced plugins** (patterns like `user/repo` or URLs):
-- Automatically adds the repo as a marketplace (if not already added)
-- Marketplace name derived from repo (e.g., `user/repo` → marketplace: `repo`)
-- Marketplace persists even after plugin removal (so future installs are faster)
-- Slower first install (requires git clone), but subsequent installs/upgrades are fast
-
-## Implementation
-
 ```bash
 INPUT="$1"
 
@@ -191,28 +167,3 @@ if [[ -f "$SETTINGS_FILE" ]]; then
 fi
 
 echo "✓ Installed $PLUGIN_NAME@$SOURCE at ${CURRENT_SHA:0:7}"
-```
-
-**Output:**
-
-For marketplace plugins:
-```
-Installing superpowers...
-✓ Installed superpowers@claude-plugins-official at 6e43e87
-```
-
-For git-sourced plugins:
-```
-Adding marketplace 'custom-plugin' from user/custom-plugin...
-✓ Marketplace added
-
-Installing custom-plugin...
-✓ Installed custom-plugin@custom-plugin at a1b2c3d
-```
-
-**Notes for Future You:**
-
-- Git-sourced plugins create persistent marketplace entries. They stay in your marketplace list even after uninstalling the plugin, so reinstalls are faster.
-- You can see all marketplaces with `claude plugin marketplace list`
-- Remove unused marketplaces with `claude plugin marketplace remove <name>`
-- The marketplace name is derived from the repo name (last segment of user/repo or URL)

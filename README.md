@@ -19,7 +19,7 @@ git clone https://github.com/patrickmburrell/ccgarage-skill.git ~/.claude/skills
 - `update` — Sync marketplace repo (git pull)
 - `outdated` — Show plugins with available updates
 - `upgrade [plugin]` — Update plugins to latest (all if no arg)
-- `install <plugin|repo>` — Install from marketplace or GitHub (e.g., `obra/superpowers`)
+- `install <plugin|repo>` — Install from marketplace or GitHub (e.g., `user/repo`)
 - `remove <plugin>` — Uninstall plugin
 
 **Inventory** (marketplace plugins + custom skills):
@@ -46,7 +46,29 @@ See [SKILL.md](SKILL.md) for complete documentation.
 
 ## Architecture
 
-Router pattern with verb dispatch. `SKILL.md` parses the verb and dispatches to sub-skill files (`update.md`, `doctor.md`, etc.). Uses Agent tool to spawn subagents that read and execute sub-skills, returning only results (not the skill contents) to keep conversation context lean.
+Router pattern with verb dispatch. `SKILL.md` parses the verb and executes pre-built shell scripts from `bin/` directory. Scripts are extracted from bash code blocks in verb `.md` files using `make sync`.
+
+### Token Efficiency
+
+- **Old approach**: Subagent reads .md files (400-500 lines of markdown per tuneup)
+- **New approach**: Direct script execution (output only, ~50-100 lines)
+- **Savings**: ~80% token reduction per invocation
+
+### Maintenance
+
+When updating verb `.md` files, regenerate scripts:
+
+```bash
+cd ~/.claude/skills/ccgarage
+make sync
+```
+
+Or clean and regenerate:
+
+```bash
+make clean
+make sync
+```
 
 ## License
 
