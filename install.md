@@ -11,8 +11,8 @@ Installs plugins from marketplaces or GitHub repositories.
 
 ```bash
 /cc install superpowers                          # From default marketplace
-/cc install obra/superpowers                     # From GitHub (user/repo)
-/cc install https://github.com/obra/superpowers  # From GitHub (full URL)
+/cc install user/repo                            # From GitHub (user/repo)
+/cc install https://github.com/user/repo         # From GitHub (full URL)
 ```
 
 ## Behavior
@@ -23,7 +23,7 @@ Installs plugins from marketplaces or GitHub repositories.
 
 **Git-sourced plugins** (patterns like `user/repo` or URLs):
 - Automatically adds the repo as a marketplace (if not already added)
-- Marketplace name derived from repo (e.g., `obra/superpowers` → marketplace: `superpowers`)
+- Marketplace name derived from repo (e.g., `user/repo` → marketplace: `repo`)
 - Marketplace persists even after plugin removal (so future installs are faster)
 - Slower first install (requires git clone), but subsequent installs/upgrades are fast
 
@@ -38,7 +38,7 @@ if [[ -z "$INPUT" ]]; then
   echo ""
   echo "Examples:"
   echo "  /cc install superpowers                   # marketplace plugin"
-  echo "  /cc install obra/superpowers              # GitHub repo (user/repo)"
+  echo "  /cc install user/repo                     # GitHub repo (user/repo)"
   echo "  /cc install https://github.com/user/repo  # GitHub URL"
   exit 1
 fi
@@ -203,11 +203,11 @@ Installing superpowers...
 
 For git-sourced plugins:
 ```
-Adding marketplace 'superpowers' from obra/superpowers...
+Adding marketplace 'custom-plugin' from user/custom-plugin...
 ✓ Marketplace added
 
-Installing superpowers...
-✓ Installed superpowers@superpowers at a1b2c3d
+Installing custom-plugin...
+✓ Installed custom-plugin@custom-plugin at a1b2c3d
 ```
 
 **Notes for Future You:**

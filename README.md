@@ -19,7 +19,7 @@ git clone https://github.com/patrickmburrell/ccgarage-skill.git ~/.claude/skills
 - `update` — Sync marketplace repo (git pull)
 - `outdated` — Show plugins with available updates
 - `upgrade [plugin]` — Update plugins to latest (all if no arg)
-- `install <plugin|repo>` — Install from marketplace or GitHub (e.g., `obra/superpowers`)
+- `install <plugin|repo>` — Install from marketplace or GitHub (e.g., `user/repo`)
 - `remove <plugin>` — Uninstall plugin
 
 **Inventory** (marketplace plugins + custom skills):
