@@ -12,13 +12,15 @@ Chains diagnostic verbs into one comprehensive report. Changes nothing except `/
 This is a convenience wrapper. Execute the three diagnostic verbs in sequence.
 
 ```bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 echo "=== Claude Code Tuneup ==="
 echo ""
 
 # Step 1: Update marketplace
 echo "Step 1/3: Syncing marketplace..."
 echo ""
-bash -c "$(cat ~/.claude/skills/cc/update.md | sed -n '/^```bash/,/^```/p' | sed '1d;$d')"
+"$SCRIPT_DIR/update.sh"
 
 echo ""
 echo "---"
@@ -27,7 +29,7 @@ echo ""
 # Step 2: Run doctor
 echo "Step 2/3: Health check..."
 echo ""
-bash -c "$(cat ~/.claude/skills/cc/doctor.md | sed -n '/^```bash/,/^```/p' | sed '1d;$d')"
+"$SCRIPT_DIR/doctor.sh"
 
 echo ""
 echo "---"
@@ -36,7 +38,7 @@ echo ""
 # Step 3: Check for outdated plugins
 echo "Step 3/3: Plugin version check..."
 echo ""
-bash -c "$(cat ~/.claude/skills/cc/outdated.md | sed -n '/^```bash/,/^```/p' | sed '1d;$d')"
+"$SCRIPT_DIR/outdated.sh"
 
 echo ""
 echo "=== Tuneup Complete ==="

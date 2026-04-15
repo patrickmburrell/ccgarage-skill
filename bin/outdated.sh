@@ -1,15 +1,6 @@
----
-name: cc:outdated
-description: Check which installed plugins have updates available
----
+#!/usr/bin/env bash
+set -euo pipefail
 
-# `/cc outdated`
-
-Checks git history to see if specific plugin directories have updates in marketplace since installation.
-
-## Implementation
-
-```bash
 INSTALLED_FILE="$HOME/.claude/plugins/installed_plugins.json"
 MARKETPLACES_DIR="$HOME/.claude/plugins/marketplaces"
 
@@ -112,16 +103,3 @@ else
   echo ""
   echo "Run /cc upgrade to update outdated plugins"
 fi
-```
-
-**Output:**
-- List of plugins with updates available, showing number of commits
-- Age since installation
-- Warning if marketplaces are stale
-- "All plugins up to date" if nothing to upgrade
-
-**Notes:**
-- Checks if specific plugin directory changed in marketplace git history
-- Only reports outdated if the plugin itself has commits (not just marketplace changes to other plugins)
-- More accurate than comparing marketplace HEAD SHAs which change for any plugin update
-- Still warns about stale marketplaces to prompt syncing
